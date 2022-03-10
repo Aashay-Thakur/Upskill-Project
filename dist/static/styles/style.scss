@@ -1,0 +1,38 @@
+body,
+html {
+	margin: 0;
+	padding: 0;
+	height: 100vh;
+}
+nav {
+	ul {
+		li {
+			display: inline;
+			right: 1rem;
+		}
+	}
+}
+
+.schedule-container {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 2rem;
+	.class {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		margin-bottom: 2rem;
+		border: 5px solid #eee;
+		padding: 5rem 10rem;
+		.class-name {
+			font-size: 2rem;
+			font-weight: bold;
+		}
+		.class-time {
+			font-size: 1.5rem;
+		}
+	}
+}

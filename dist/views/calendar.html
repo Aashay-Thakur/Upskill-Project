@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Calendar</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	</head>
+	<style>
+		.today {
+			background-color: hsl(174, 63%, 45%);
+			color: #fff;
+		}
+		.today.highlight {
+			animation: highlight 0.2s ease-out;
+		}
+		.today:hover {
+			background-color: hsl(174, 63%, 40%);
+			color: #fff;
+		}
+		.day {
+			cursor: pointer;
+		}
+		.day:not(.today):hover {
+			background-color: #f5f5f5;
+		}
+		.sunday-heading {
+			color: #f44336;
+		}
+		.browser-default {
+			cursor: pointer;
+			border-radius: 0;
+		}
+		option {
+			cursor: pointer;
+		}
+		@media screen and (min-width: 1000px) {
+			.day.waves-effect {
+				display: table-cell;
+			}
+		}
+		@keyframes highlight {
+			0% {
+				background-color: #2abbad;
+			}
+			30% {
+				background-color: #f5f5f5;
+				color: #000;
+			}
+			100% {
+				background-color: #2abbad;
+			}
+		}
+	</style>
+	<body>
+		<div class="container">
+			<h3 class="card-header" id="month-year-heading"></h3>
+			<div class="row">
+				<table class="table centered responsive-table" id="calendar">
+					<thead>
+						<tr>
+							<th class="sunday-heading">SUN</th>
+							<th>MON</th>
+							<th>TUE</th>
+							<th>WED</th>
+							<th>THU</th>
+							<th>FRI</th>
+							<th>SAT</th>
+						</tr>
+					</thead>
+					<tbody id="calendar-body"></tbody>
+				</table>
+			</div>
+
+			<div class="row s1">
+				<a href="#" class="waves-effect waves-light btn previous-button" id="previous">Previous</a>
+				<a href="#" class="waves-effect waves-light btn next-button" id="next">Next</a>
+				<a href="#" class="waves-effect waves-light btn today-button right" id="today">Today</a>
+			</div>
+
+			<div class="row">
+				<div class="input-field col s3">
+					<select name="month" class="browser-default" id="select-month">
+						<option value="1">January</option>
+						<option value="2">February</option>
+						<option value="3">March</option>
+						<option value="4">April</option>
+						<option value="5">May</option>
+						<option value="6">June</option>
+						<option value="7">July</option>
+						<option value="8">August</option>
+						<option value="9">September</option>
+						<option value="10">October</option>
+						<option value="11">November</option>
+						<option value="12">December</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<script src="static/scripts/main.js"></script>
+	</body>
+</html>

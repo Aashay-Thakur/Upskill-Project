@@ -1,0 +1,32 @@
+{
+	"name": "upskill",
+	"version": "1.0.0",
+	"description": "",
+	"private": true,
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node app.js",
+		"build": "webpack --config webpack.config.js",
+		"watch-build": "npx webpack --config webpack.config.js",
+		"nodemon": "nodemon app.js"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"dompurify": "^2.3.6",
+		"express": "^4.17.3",
+		"firebase": "^9.6.8",
+		"jquery": "^3.6.0",
+		"marked": "^4.0.12",
+		"moment": "^2.29.1",
+		"stackedit-js": "^1.0.7",
+		"webpack": "^5.70.0"
+	},
+	"devDependencies": {
+		"moment-locales-webpack-plugin": "^1.2.0",
+		"source-map-loader": "^3.0.1",
+		"webpack-cli": "^4.9.2",
+		"webpack-dev-server": "^4.7.4"
+	}
+}
