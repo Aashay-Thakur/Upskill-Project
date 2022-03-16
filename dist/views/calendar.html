@@ -21,8 +21,12 @@
 		}
 		.day {
 			cursor: pointer;
+			display: flex;
+			justify-content: start;
+			align-items: end;
+			animation: fadeIn 0.2s ease-out;
 		}
-		.day:not(.today):hover {
+		.day:not(.today):not(.selected):hover {
 			background-color: #f5f5f5;
 		}
 		.sunday-heading {
@@ -34,6 +38,18 @@
 		}
 		option {
 			cursor: pointer;
+		}
+		.selected {
+			background-color: #4e4443;
+			color: #fff;
+		}
+		#schedule {
+			background-color: #4e4443;
+			color: #fff;
+		}
+		.toastBox {
+			background-color: #4e4443;
+			color: #fff;
 		}
 		@media screen and (min-width: 1000px) {
 			.day.waves-effect {
@@ -50,6 +66,15 @@
 			}
 			100% {
 				background-color: #2abbad;
+			}
+		}
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+			}
+
+			to {
+				opacity: 1;
 			}
 		}
 	</style>
@@ -76,9 +101,11 @@
 			<div class="row s1">
 				<a href="#" class="waves-effect waves-light btn previous-button" id="previous">Previous</a>
 				<a href="#" class="waves-effect waves-light btn next-button" id="next">Next</a>
-				<a href="#" class="waves-effect waves-light btn today-button right" id="today">Today</a>
+				<a href="#" class="waves-effect waves-light btn today-button" id="today">Today</a>
+				<a href="#" class="waves-effect waves-light btn schedule-button right" id="schedule">Schedule</a>
 			</div>
 
+			<!-- Error Toast -->
 			<div class="row">
 				<div class="input-field col s3">
 					<select name="month" class="browser-default" id="select-month">

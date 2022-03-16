@@ -2,6 +2,7 @@ const path = require("path");
 
 // create a server
 const express = require("express");
+const { ContextExclusionPlugin } = require("webpack");
 const app = express();
 
 // listen to port 3000
@@ -37,9 +38,12 @@ app.get("/create-notice", function (req, res) {
 	res.sendFile("views/create-notice.html", { root: rootPath });
 });
 
-// Send calendar.js on /calendar
 app.get("/calendar", function (req, res) {
 	res.sendFile("views/calendar.html", { root: rootPath });
+});
+
+app.get("/day-schedule", function (req, res) {
+	res.sendFile("views/day-schedule.html", { root: rootPath });
 });
 
 // Static files
