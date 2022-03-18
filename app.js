@@ -1,4 +1,5 @@
 const path = require("path");
+const axios = require("axios");
 
 // create a server
 const express = require("express");
@@ -24,10 +25,6 @@ app.get("/schedule", function (req, res) {
 
 app.get("/login", function (req, res) {
 	res.sendFile("views/login.html", { root: rootPath });
-});
-
-app.get("/login", function (req, res) {
-	res.sendFile("views/signup.html", { root: rootPath });
 });
 
 app.get("/make-schedule", function (req, res) {

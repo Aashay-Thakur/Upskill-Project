@@ -2,9 +2,13 @@ const path = require("path");
 const MomentLocalesPlugin = require("moment-locales-webpack-plugin");
 
 module.exports = {
-	entry: ["./src/scripts/firebase-config.js", "./src/scripts/calendar.js", "./src/scripts/day-schedule.js", "./src/scripts/schedule.js"],
+	entry: {
+		calendar: "./src/scripts/calendar.js",
+		"day-schedule": "./src/scripts/day-schedule.js",
+		schedule: "./src/scripts/schedule.js",
+	},
 	output: {
-		filename: "static/scripts/main.js",
+		filename: "static/scripts/[name].js",
 		path: path.resolve(__dirname, "dist"),
 	},
 	module: {
