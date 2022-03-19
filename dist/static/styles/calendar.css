@@ -1,0 +1,153 @@
+/*!*******************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/styles/calendar.scss ***!
+  \*******************************************************************************************************************/
+body {
+  display: flex;
+  height: 100vh;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  position: absolute;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  position: absolute;
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  position: absolute;
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  position: absolute;
+  background: #555;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+.today {
+  background-color: #2abbad;
+  color: #fff;
+}
+.today:hover {
+  background-color: #26a699;
+  color: #fff;
+}
+.today.highlight {
+  animation: highlight 0.2s ease-out;
+}
+
+.day {
+  cursor: pointer;
+  display: flex;
+  justify-content: start;
+  align-items: end;
+  animation: fadeIn 0.2s ease-out;
+}
+.day:not(.today):not(.selected):hover {
+  background-color: #f5f5f5;
+}
+
+.sunday-heading {
+  color: #f44336;
+}
+
+.browser-default {
+  cursor: pointer;
+  border-radius: 0;
+  border: none;
+  padding: 5px;
+}
+
+option {
+  cursor: pointer;
+}
+
+.selected {
+  background-color: #4e4443;
+  color: #fff;
+}
+
+#schedule {
+  background-color: #4e4443;
+  color: #fff;
+}
+
+.toastBox {
+  background-color: #4e4443;
+  color: #fff;
+}
+
+.schedule-list-item {
+  animation: fadeUp 500ms ease-out forwards;
+}
+
+.schedule-item {
+  display: block;
+}
+
+.scheduled-day::after {
+  content: "";
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  background-color: teal;
+  left: 0;
+  bottom: 0;
+  transition: height 0.2s ease-out;
+}
+
+.selected.scheduled-day::after {
+  height: 10px;
+}
+
+.placeholder {
+  position: absolute;
+  opacity: 0;
+}
+
+@media screen and (min-width: 1000px) {
+  .day.waves-effect {
+    display: table-cell;
+  }
+}
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes highlight {
+  0% {
+    background-color: #2abbad;
+  }
+  30% {
+    background-color: #f5f5f5;
+    color: #000;
+  }
+  100% {
+    background-color: #2abbad;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

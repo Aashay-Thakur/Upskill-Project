@@ -2,10 +2,20 @@ import moment from "moment";
 import $ from "jquery";
 import { db } from "./firebase-config";
 import { getDocs, where, query, Timestamp, collection } from "firebase/firestore";
+import "../styles/calendar.scss";
+
+var collapsibleElems;
+var collapsibleInstances;
+
+var modalElems;
+var modalInstances;
 
 document.addEventListener("DOMContentLoaded", function () {
-	var elems = document.querySelectorAll(".collapsible");
-	var instances = M.Collapsible.init(elems, { accordion: false });
+	collapsibleElems = document.querySelectorAll(".collapsible");
+	collapsibleInstances = M.Collapsible.init(collapsibleElems, { accordion: false });
+
+	modalElems = document.querySelectorAll(".modal");
+	modalInstances = M.Modal.init(modalElems, {});
 });
 
 const scheduleList = document.querySelector("#schedule-list");
@@ -141,7 +151,7 @@ $(schedule).on("click", function (e) {
 	if (!selectedElem) M.toast({ html: "Please Select a Day First", classes: "toastBox" });
 	if (document.querySelectorAll(".toastBox").length > 5) M.Toast.dismissAll();
 	if (selectedElem) {
-		location.href = `/day-schedule?date=${selectedElem.dataset.date}`;
+		modalInstances[0].open();
 	}
 });
 
@@ -163,33 +173,45 @@ async function getSchedule() {
 		if (docSnapshot.empty) {
 			let string = `No Lectures Scheduled for the ${moment(dateQuery).format("Do MMMM").split(" ").join(" of ")}`;
 			M.toast({ html: string, classes: "toastBox" });
+			$(".day-schedules").animate({ height: 0 + "px" }, 1000);
 			return;
 		}
 		let docId = docSnapshot.docs[0].id;
 		let index = 0;
+
 		getDocs(collection(db, "college/NKT01/schedule/" + docId + "/lecturesScheduled")).then((scheduleSnap) => {
+			let templateString = "";
 			scheduleSnap.forEach((lecture) => {
 				if (lecture.data()) {
 					let data = lecture.data();
 					let startTime = moment(data.startTime.toDate()).format("LT");
 
-					let templateString = `
-							<li class="schedule-list-item" style="animation-delay: ${(index * 1000) / 2}ms; opacity: 0">
+					templateString += `
+							<li class="schedule-list-item" style="animation-delay: ${(index * 1000) / 2 + 1000}ms; opacity: 0">
 								<div class="collapsible-header schedule-item">
 									<div><span class="head-subject">${data.subject}</span><span class="head-time right">${startTime}</span></div>
 								</div>
 								<div class="collapsible-body">
-									<div class="row">
-										<div class="col s12">Teacher: ${data.teacher}</div>
-										<div class="col s12">Teacher: ${data.teacher}</div>
-									</div>
+								
+								<div class="row">
+									<div class="col s6">Start Time: ${moment(data.startTime.toDate()).format("h:mm a")}</div>
+									<div class="col s6"><i class="material-icons">access_time</i>End Time: ${moment(data.endTime.toDate()).format("h:mm a")}</div>
+								</div>
+
+								<div class="row">
+									<div class="col s6">Teacher: ${data.teacher}</div>
+								</div>
 								</div>
 							</li>
 						`;
 					index++;
-					scheduleList.insertAdjacentHTML("beforeend", templateString);
 				}
 			});
+			var placeholder = document.querySelector(".placeholder");
+			placeholder.innerHTML = templateString;
+			let height = placeholder.offsetHeight;
+			$(".day-schedules").animate({ height: height + "px" }, 1000);
+			scheduleList.innerHTML = templateString;
 		});
 	});
 }

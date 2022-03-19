@@ -1,9 +1,10 @@
 const path = require("path");
 const MomentLocalesPlugin = require("moment-locales-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
 	entry: {
-		calendar: "./src/scripts/calendar.js",
+		calendar: ["./src/scripts/calendar.js", "./src/styles/calendar.scss"],
 		"day-schedule": "./src/scripts/day-schedule.js",
 		schedule: "./src/scripts/schedule.js",
 	},
@@ -18,6 +19,15 @@ module.exports = {
 				enforce: "pre",
 				use: ["source-map-loader"],
 			},
+			{
+				test: /\.scss$/,
+				use: [
+					// fallback to style-loader in development
+					MiniCssExtractPlugin.loader,
+					"css-loader",
+					"sass-loader",
+				],
+			},
 		],
 	},
 	mode: "development",
@@ -28,6 +38,9 @@ module.exports = {
 	plugins: [
 		new MomentLocalesPlugin({
 			localesToKeep: ["es-us", "es-in"],
+		}),
+		new MiniCssExtractPlugin({
+			filename: "static/styles/[name].css",
 		}),
 	],
 };

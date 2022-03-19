@@ -4,155 +4,121 @@
 		<meta charset="UTF-8" />
 		<title>Calendar</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+		<link rel="stylesheet" href="static/styles/calendar.css" />
 	</head>
-	<style>
-		.today {
-			background-color: hsl(174, 63%, 45%);
-			color: #fff;
-		}
-		.today.highlight {
-			animation: highlight 0.2s ease-out;
-		}
-		.today:hover {
-			background-color: hsl(174, 63%, 40%);
-			color: #fff;
-		}
-		.day {
-			cursor: pointer;
-			display: flex;
-			justify-content: start;
-			align-items: end;
-			animation: fadeIn 0.2s ease-out;
-		}
-		.day:not(.today):not(.selected):hover {
-			background-color: #f5f5f5;
-		}
-		.sunday-heading {
-			color: #f44336;
-		}
-		.browser-default {
-			cursor: pointer;
-			border-radius: 0;
-		}
-		option {
-			cursor: pointer;
-		}
-		.selected {
-			background-color: #4e4443;
-			color: #fff;
-		}
-		#schedule {
-			background-color: #4e4443;
-			color: #fff;
-		}
-		.toastBox {
-			background-color: #4e4443;
-			color: #fff;
-		}
-		.schedule-list-item {
-			animation: fadeUp 500ms ease-out forwards;
-		}
-		.schedule-item {
-			display: block;
-		}
-		.scheduled-day::after {
-			content: "";
-			position: absolute;
-			height: 2px;
-			width: 100%;
-			background-color: teal;
-			left: 0;
-			bottom: 0;
-		}
-		@media screen and (min-width: 1000px) {
-			.day.waves-effect {
-				display: table-cell;
-			}
-		}
-		@keyframes fadeUp {
-			from {
-				opacity: 0;
-				transform: translateY(30px);
-			}
-			to {
-				opacity: 1;
-				transform: translateY(0);
-			}
-		}
-		@keyframes highlight {
-			0% {
-				background-color: #2abbad;
-			}
-			30% {
-				background-color: #f5f5f5;
-				color: #000;
-			}
-			100% {
-				background-color: #2abbad;
-			}
-		}
-		@keyframes fadeIn {
-			from {
-				opacity: 0;
-			}
-
-			to {
-				opacity: 1;
-			}
-		}
-	</style>
 	<body>
-		<div class="container">
-			<h3 class="card-header" id="month-year-heading"></h3>
-			<div class="row">
-				<table class="table centered responsive-table" id="calendar">
-					<thead>
-						<tr>
-							<th class="sunday-heading">SUN</th>
-							<th>MON</th>
-							<th>TUE</th>
-							<th>WED</th>
-							<th>THU</th>
-							<th>FRI</th>
-							<th>SAT</th>
-						</tr>
-					</thead>
-					<tbody id="calendar-body"></tbody>
-				</table>
-			</div>
+		<header>
+			<ul id="dropdown1" class="dropdown-content">
+				<li><a href="#!">one</a></li>
+				<li><a href="#!">two</a></li>
+				<li class="divider"></li>
+				<li><a href="#!">three</a></li>
+			</ul>
+			<nav>
+				<div class="nav-wrapper">
+					<a href="#!" class="brand-logo">Logo</a>
+					<ul class="right hide-on-med-and-down">
+						<li><a href="sass.html">Sass</a></li>
+						<li><a href="badges.html">Components</a></li>
+						<!-- Dropdown Trigger -->
+						<li>
+							<a class="dropdown-trigger" href="#!" data-target="dropdown1"
+								>Dropdown<i class="material-icons right">arrow_drop_down</i></a
+							>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</header>
+		<main>
+			<div class="placeholder"></div>
+			<div class="container">
+				<h3 class="card-header" id="month-year-heading"></h3>
+				<div class="row">
+					<table class="table centered responsive-table" id="calendar">
+						<thead>
+							<tr>
+								<th class="sunday-heading">SUN</th>
+								<th>MON</th>
+								<th>TUE</th>
+								<th>WED</th>
+								<th>THU</th>
+								<th>FRI</th>
+								<th>SAT</th>
+							</tr>
+						</thead>
+						<tbody id="calendar-body"></tbody>
+					</table>
+				</div>
+				<div class="row s1">
+					<a href="#" class="waves-effect waves-light btn previous-button" id="previous">Previous</a>
+					<a href="#" class="waves-effect waves-light btn next-button" id="next">Next</a>
+					<a href="#" class="waves-effect waves-light btn today-button" id="today">Today</a>
+					<a href="#" class="waves-effect waves-light btn schedule-button right" id="schedule">Schedule</a>
+				</div>
+				<!-- New Lecture Modal -->
+				<div id="new-lecture" class="modal">
+					<div class="modal-content">
+						<h4>Modal Header</h4>
+						<p>A bunch of text</p>
+					</div>
+					<div class="modal-footer">
+						<a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+					</div>
+				</div>
 
-			<div class="row s1">
-				<a href="#" class="waves-effect waves-light btn previous-button" id="previous">Previous</a>
-				<a href="#" class="waves-effect waves-light btn next-button" id="next">Next</a>
-				<a href="#" class="waves-effect waves-light btn today-button" id="today">Today</a>
-				<a href="#" class="waves-effect waves-light btn schedule-button right" id="schedule">Schedule</a>
-			</div>
-
-			<!-- Error Toast -->
-			<div class="row">
-				<div class="input-field col s3">
-					<select name="month" class="browser-default" id="select-month">
-						<option value="1">January</option>
-						<option value="2">February</option>
-						<option value="3">March</option>
-						<option value="4">April</option>
-						<option value="5">May</option>
-						<option value="6">June</option>
-						<option value="7">July</option>
-						<option value="8">August</option>
-						<option value="9">September</option>
-						<option value="10">October</option>
-						<option value="11">November</option>
-						<option value="12">December</option>
-					</select>
+				<!-- Error Toast -->
+				<div class="row">
+					<div class="input-field col s3">
+						<select name="month" class="browser-default" id="select-month">
+							<option value="1">January</option>
+							<option value="2">February</option>
+							<option value="3">March</option>
+							<option value="4">April</option>
+							<option value="5">May</option>
+							<option value="6">June</option>
+							<option value="7">July</option>
+							<option value="8">August</option>
+							<option value="9">September</option>
+							<option value="10">October</option>
+							<option value="11">November</option>
+							<option value="12">December</option>
+						</select>
+					</div>
+				</div>
+				<div class="day-schedules container">
+					<ul class="collapsible popout expandable" id="schedule-list"></ul>
 				</div>
 			</div>
-			<div class="day-schedules">
-				<ul class="collapsible popout expandable" id="schedule-list"></ul>
+		</main>
+		<footer class="page-footer">
+			<div class="container">
+				<div class="row">
+					<div class="col l6 s12">
+						<h5 class="white-text">Footer Content</h5>
+						<p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+					</div>
+					<div class="col l4 offset-l2 s12">
+						<h5 class="white-text">Links</h5>
+						<ul>
+							<li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+							<li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+							<li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+							<li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+						</ul>
+					</div>
+				</div>
 			</div>
-		</div>
+			<div class="footer-copyright">
+				<div class="container">
+					© 2014 Copyright Text
+					<a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+				</div>
+			</div>
+		</footer>
 		<script src="static/scripts/calendar.js"></script>
 	</body>
 </html>
