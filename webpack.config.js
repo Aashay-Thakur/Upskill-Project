@@ -7,6 +7,9 @@ module.exports = {
 		calendar: ["./src/scripts/calendar.js", "./src/styles/calendar.scss"],
 		"day-schedule": "./src/scripts/day-schedule.js",
 		schedule: "./src/scripts/schedule.js",
+		login: "./src/scripts/login.js",
+		register: "./src/scripts/register.js",
+		chart: "./src/scripts/chart.js",
 	},
 	output: {
 		filename: "static/scripts/[name].js",
