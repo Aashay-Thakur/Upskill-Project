@@ -139,9 +139,12 @@ function previous() {
 
 function addListeners() {
 	$(".day").on("click", function () {
+		let oldSelectDate;
+		if (document.querySelector(".selected")) oldSelectDate = document.querySelector(".selected").dataset.date;
 		$(".selected").removeClass("selected waves-light");
 		$(this).addClass("selected waves-light");
-		getSchedule();
+		if (document.querySelectorAll(".toastBox").length > 5) M.Toast.dismissAll();
+		getSchedule(oldSelectDate);
 	});
 }
 
@@ -149,14 +152,14 @@ $(schedule).on("click", function (e) {
 	e.preventDefault();
 	let selectedElem = document.querySelector(".selected");
 	if (!selectedElem) M.toast({ html: "Please Select a Day First", classes: "toastBox" });
-	if (document.querySelectorAll(".toastBox").length > 5) M.Toast.dismissAll();
 	if (selectedElem) {
 		modalInstances[0].open();
 	}
 });
 
-async function getSchedule() {
+async function getSchedule(previousSelectedDate) {
 	var selectedElem = document.querySelector(".selected");
+	if (previousSelectedDate === selectedElem.dataset.date) return;
 	let dateQuery;
 
 	if (/\d{1,2}-\d{1,2}-\d{1,2}/.test(selectedElem.dataset.date)) {
@@ -168,12 +171,13 @@ async function getSchedule() {
 	// Query to get all the schedule for the selected day
 	var query1 = where("date", ">=", Timestamp.fromDate(new Date(dateQuery.toLocaleDateString() + " " + "00:00:00")));
 	var query2 = where("date", "<=", Timestamp.fromDate(new Date(dateQuery.toLocaleDateString() + " " + "23:59:59")));
-	scheduleList.innerHTML = "";
+
 	await getDocs(query(collection(db, "college/NKT01/schedule"), query1, query2)).then((docSnapshot) => {
 		if (docSnapshot.empty) {
 			let string = `No Lectures Scheduled for the ${moment(dateQuery).format("Do MMMM").split(" ").join(" of ")}`;
 			M.toast({ html: string, classes: "toastBox" });
-			$(".day-schedules").animate({ height: 0 + "px" }, 1000);
+			$(".day-schedules").animate({ height: 0 + "px" }, 300);
+			$(".schedule-list-item").remove();
 			return;
 		}
 		let docId = docSnapshot.docs[0].id;
@@ -187,7 +191,7 @@ async function getSchedule() {
 					let startTime = moment(data.startTime.toDate()).format("LT");
 
 					templateString += `
-							<li class="schedule-list-item" style="animation-delay: ${(index * 1000) / 2 + 1000}ms; opacity: 0">
+							<li class="schedule-list-item" style="animation-delay: ${(index * 1000) / 2 + 500}ms; opacity: 0">
 								<div class="collapsible-header schedule-item">
 									<div><span class="head-subject">${data.subject}</span><span class="head-time right">${startTime}</span></div>
 								</div>
@@ -207,11 +211,23 @@ async function getSchedule() {
 					index++;
 				}
 			});
-			var placeholder = document.querySelector(".placeholder");
-			placeholder.innerHTML = templateString;
-			let height = placeholder.offsetHeight;
-			$(".day-schedules").animate({ height: height + "px" }, 1000);
+			document.querySelector(".placeholder-ul").innerHTML = templateString.replace(/schedule-list-item/g, "");
+			let setHeight = getAbsoluteHeight(document.querySelector(".placeholder"));
+			console.log(setHeight);
+			$(".day-schedules").animate({ height: setHeight }, 300, "swing", function () {
+				$(".day-schedules").css("height", "auto");
+			});
 			scheduleList.innerHTML = templateString;
 		});
 	});
+}
+
+function getAbsoluteHeight(el) {
+	// Get the DOM Node if you pass in a string
+	el = typeof el === "string" ? document.querySelector(el) : el;
+
+	var styles = window.getComputedStyle(el);
+	var margin = parseFloat(styles["marginTop"]) + parseFloat(styles["marginBottom"]);
+
+	return Math.ceil(el.offsetHeight + margin);
 }

@@ -74,7 +74,7 @@ option {
 }
 
 .selected {
-  background-color: #4e4443;
+  background: #ee6e73;
   color: #fff;
 }
 
@@ -106,8 +106,7 @@ option {
   bottom: 0;
   transition: height 0.2s ease-out;
 }
-
-.selected.scheduled-day::after {
+.scheduled-day.selected::after {
   height: 10px;
 }
 
@@ -119,6 +118,16 @@ option {
 @media screen and (min-width: 1000px) {
   .day.waves-effect {
     display: table-cell;
+  }
+}
+@keyframes fadeRight {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100%);
   }
 }
 @keyframes fadeUp {

@@ -65,7 +65,7 @@ option {
 	cursor: pointer;
 }
 .selected {
-	background-color: #4e4443;
+	background: #ee6e73;
 	color: #fff;
 }
 #schedule {
@@ -82,20 +82,21 @@ option {
 .schedule-item {
 	display: block;
 }
-.scheduled-day::after {
-	content: "";
-	position: absolute;
-	height: 2px;
-	width: 100%;
-	background-color: teal;
-	left: 0;
-	bottom: 0;
-	transition: height 0.2s ease-out;
+.scheduled-day {
+	&::after {
+		content: "";
+		position: absolute;
+		height: 2px;
+		width: 100%;
+		background-color: teal;
+		left: 0;
+		bottom: 0;
+		transition: height 0.2s ease-out;
+	}
+	&.selected::after {
+		height: 10px;
+	}
 }
-.selected.scheduled-day::after {
-	height: 10px;
-}
-
 .placeholder {
 	position: absolute;
 	opacity: 0;
@@ -103,6 +104,16 @@ option {
 @media screen and (min-width: 1000px) {
 	.day.waves-effect {
 		display: table-cell;
+	}
+}
+@keyframes fadeRight {
+	0% {
+		opacity: 1;
+		transform: translateX(0);
+	}
+	100% {
+		opacity: 0;
+		transform: translateX(100%);
 	}
 }
 @keyframes fadeUp {
