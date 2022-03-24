@@ -11,25 +11,41 @@
 		<style>
 			body {
 				overflow: hidden;
+				background: url("https://images.pexels.com/photos/159866/books-book-pages-read-literature-159866.jpeg");
+				background-size: cover;
 			}
 			#register-page {
 				display: flex;
 				justify-content: center;
 				align-items: center;
 				height: 100vh;
+				opacity: 0.9;
 			}
 			#register-page .register-card {
+				opacity: 1;
 				margin-left: 0 !important;
 				padding: 10px 30px;
+			}
+			.show-password {
+				cursor: pointer;
+			}
+			.material-tooltip {
+				text-align: left;
+			}
+			.tooltip-content {
+				padding: 0px 10px;
+			}
+			*::selection {
+				background: none;
 			}
 		</style>
 	</head>
 	<body>
 		<div class="row">
-			<div class="col s12">
+			<div class="col s12 m12 l12">
 				<div class="container">
 					<div id="register-page" class="row">
-						<div class="col s12 m6 l4 z-depth-4 card-panel register-card bg-opacity-8">
+						<div class="col s12 m9 l5 z-depth-4 card-panel hoverable register-card bg-opacity-8">
 							<form class="register-form" id="register-form">
 								<p class="error-html pink-text center-align"></p>
 								<div class="row">
@@ -37,28 +53,66 @@
 										<h5 class="ml-4">Register</h5>
 									</div>
 								</div>
+								<div class="row">
+									<div class="input-field col s6">
+										<i class="material-icons prefix pt-2 person-icon">person</i>
+										<input
+											id="first-name"
+											class="validate"
+											type="text"
+											required="true"
+											onfocus="this.addEventListener('keydown', function(e) {
+												if (e.keyCode === 32) e.preventDefault();
+											})"
+										/>
+										<label for="first-name">First Name</label>
+										<!-- <span class="helper-text" data-wrong="Please enter a Name"></span> -->
+									</div>
+									<div class="input-field col s6">
+										<input
+											id="last-name"
+											class="validate"
+											type="text"
+											onfocus="
+											document.querySelector('.person-icon').classList.add('active');
+											this.addEventListener('keydown', function(e) {
+												if (e.keyCode === 32) e.preventDefault();
+											})"
+											onblur="document.querySelector('.person-icon').classList.remove('active')"
+											required="true"
+											onfocus=""
+										/>
+										<label for="last-name">Last Name</label>
+									</div>
+								</div>
 								<div class="row margin">
 									<div class="input-field col s12" onclick="onFocus(this)">
-										<i class="material-icons prefix pt-2">mail_outline</i>
-										<input id="register-email" type="email" required="true" />
+										<i class="material-icons prefix pt-2">mail</i>
+										<input id="register-email" class="validate" type="email" required="true" />
 										<label for="register-email " class="center-align">Email</label>
+										<span class="helper-text" data-error="Please enter a valid Email" data-success="">example@mail.com</span>
+									</div>
+								</div>
+								<div class="row margin">
+									<div class="input-field col s11">
+										<i class="material-icons prefix pt-2">lock</i>
+										<input id="register-password" type="password" class="tooltipped" required="true" />
+										<i class="material-icons prefix pt-2 show-password">visibility</i>
+										<label for="register-password">Password</label>
 									</div>
 								</div>
 								<div class="row margin">
 									<div class="input-field col s12">
-										<i class="material-icons prefix pt-2">lock_outline</i>
-										<input id="register-password" type="password" required="true" />
-										<label for="register-password">Password</label>
+										<i class="material-icons prefix pt-2">phone</i>
+										<input id="register-phone" type="tel" required="false" />
+										<label for="register-phone">Phone (Optional)</label>
 									</div>
 								</div>
-								<div class="row">
-									<div class="col s12 m12 l12 ml-2 mt-1">
-										<p>
-											<label>
-												<input type="checkbox" id="rememberMe" />
-												<span>Remember Me</span>
-											</label>
-										</p>
+								<div class="row margin">
+									<div class="input-field col s6">
+										<i class="material-icons prefix pt-2">group_outline</i>
+										<input id="class-code" type="text" required="true" />
+										<label for="class-code">Class Code</label>
 									</div>
 								</div>
 								<div class="row">

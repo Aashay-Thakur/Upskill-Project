@@ -35,37 +35,67 @@
 		</header>
 		<main>
 			<div class="container">
-				<h3 class="card-header" id="month-year-heading"></h3>
-				<div class="row">
-					<table class="table centered responsive-table" id="calendar">
-						<thead>
-							<tr>
-								<th class="sunday-heading">SUN</th>
-								<th>MON</th>
-								<th>TUE</th>
-								<th>WED</th>
-								<th>THU</th>
-								<th>FRI</th>
-								<th>SAT</th>
-							</tr>
-						</thead>
-						<tbody id="calendar-body"></tbody>
-					</table>
-				</div>
-				<div class="row s1">
-					<a href="#" class="waves-effect waves-light btn previous-button" id="previous">Previous</a>
-					<a href="#" class="waves-effect waves-light btn next-button" id="next">Next</a>
-					<a href="#" class="waves-effect waves-light btn today-button" id="today">Today</a>
-					<a href="#" class="waves-effect waves-light btn schedule-button right" id="schedule">Schedule</a>
+				<div class="container">
+					<h3 class="card-header" id="month-year-heading"></h3>
+					<div class="row">
+						<table class="table centered responsive-table" id="calendar">
+							<thead>
+								<tr>
+									<th class="sunday-heading">SUN</th>
+									<th>MON</th>
+									<th>TUE</th>
+									<th>WED</th>
+									<th>THU</th>
+									<th>FRI</th>
+									<th>SAT</th>
+								</tr>
+							</thead>
+							<tbody id="calendar-body"></tbody>
+						</table>
+					</div>
+					<div class="row s1">
+						<a href="#" class="waves-effect waves-light btn previous-button" id="previous">Previous</a>
+						<a href="#" class="waves-effect waves-light btn next-button" id="next">Next</a>
+						<a href="#" class="waves-effect waves-light btn today-button" id="today">Today</a>
+						<a href="#" class="waves-effect waves-light btn schedule-button right" id="schedule">Schedule</a>
+					</div>
 				</div>
 				<!-- New Lecture Modal -->
 				<div id="new-lecture" class="modal">
-					<div class="modal-content">
-						<h4>Modal Header</h4>
-						<p>A bunch of text</p>
-					</div>
-					<div class="modal-footer">
-						<a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+					<div class="container">
+						<form class="schedule-form" id="schedule-form">
+							<div class="modal-content">
+								<p class="error-schedule-html pink-text center-align"></p>
+								<div class="row">
+									<div class="input-field col s12">
+										<h5 class="ml-4">Schedule</h5>
+									</div>
+								</div>
+								<div class="row margin">
+									<div class="input-field col s12" onclick="onFocus(this)">
+										<i class="material-icons prefix pt-2">mail_outline</i>
+										<input id="login-email" type="email" required="true" />
+										<label for="login-email " class="center-align">Email</label>
+									</div>
+								</div>
+								<div class="row margin">
+									<div class="input-field col s12">
+										<i class="material-icons prefix pt-2">lock_outline</i>
+										<input id="login-password" type="password" required="true" />
+										<label for="login-password">Password</label>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<div class="row">
+									<div class="input-field col s12">
+										<button class="btn waves-effect waves-light border-round gradient-45deg-purple-deep-orange col s12">
+											Login
+										</button>
+									</div>
+								</div>
+							</div>
+						</form>
 					</div>
 				</div>
 
@@ -121,6 +151,11 @@
 				</div>
 			</div>
 		</footer>
+		<script>
+			function onFocus(x) {
+				document.getElementById("login-email").focus();
+			}
+		</script>
 		<script src="static/scripts/calendar.js"></script>
 	</body>
 </html>

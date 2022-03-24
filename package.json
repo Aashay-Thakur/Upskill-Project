@@ -14,10 +14,13 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
+		"axios": "^0.26.1",
 		"chart.js": "^3.7.1",
+		"dropify": "^0.2.2",
 		"express": "^4.17.3",
 		"firebase": "^9.6.8",
 		"firebase-admin": "^10.0.2",
+		"googleapis": "^95.0.0",
 		"jquery": "^3.6.0",
 		"mini-css-extract-plugin": "^2.6.0",
 		"moment": "^2.29.1",

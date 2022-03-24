@@ -1,6 +1,6 @@
 import moment from "moment";
 import $ from "jquery";
-import { db } from "./firebase-config";
+import { db, auth } from "./firebase-config";
 import { getDocs, where, query, Timestamp, collection } from "firebase/firestore";
 import "../styles/calendar.scss";
 
